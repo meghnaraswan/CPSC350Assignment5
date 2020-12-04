@@ -38,3 +38,6 @@ How to run:
 References:
 - ZyBooks: CPSC 298 Intro to C++
 - GenStack files we did in class
+
+Additional Notes:
+I wasn't able to successfully print all of the student and faculty information in ascending order. It still is able to display the information, not in ascending order. Choices 15 and 16 will give you a better visual representation of the tree. The save (14) choice will write the information out onto the files.
