@@ -19,8 +19,7 @@ class TreeNode{
         TreeNode *left;
         TreeNode *right;
         TreeNode *parent;
-//        Student s;
-//        Faculty f;
+
         int level;
         void print();
     

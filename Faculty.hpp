@@ -13,6 +13,7 @@ class Student;
 class Faculty{
     public:
         Faculty();
+        Faculty(const Faculty &f);
         Faculty(int fID, string n, string l, string d);
         ~Faculty();
 
@@ -29,8 +30,6 @@ class Faculty{
         string toCSV();
         void setAdviseeID(int studentID);
         void removeAdiseeID(int studentID);
-    
-
 };
 
 #endif /* Faculty_hpp */

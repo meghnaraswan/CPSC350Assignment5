@@ -13,8 +13,8 @@
 using namespace std;
 
 Database::Database(){
-    studentFileName = "/home/FirstCPP/BSTDatabase/sample_student_table.csv";
-    facultyFileName = "/home/FirstCPP/BSTDatabase/sample_faculty_table.csv";
+    studentFileName = "/home/FirstCPP/BSTDatabase/sample_student_table.csv"; //default Student file
+    facultyFileName = "/home/FirstCPP/BSTDatabase/sample_faculty_table.csv"; //default Faculty file
     studentOutputFileName = studentFileName;
     facultyOutputFileName = facultyFileName;
 }
@@ -22,11 +22,6 @@ Database::Database(){
 Database::~Database(){}
 
 void Database::save(){
-//    BSTIterator<int, Student> it = masterStudent.iterator();
-//    while(it.hasNext()) {
-//        TreeNode<int, Student>* node = it.next();
-//        cout << node->valueToCSV() << endl;
-//    }
     cout << "Saving to Disk" << endl;
     saveFaculty();
     saveStudent();
@@ -37,7 +32,6 @@ void Database::saveStudent(){
     BSTIterator<int, Student> it = masterStudent.iterator();
     while(it.hasNext()) {
         TreeNode<int, Student>* node = it.next();
-//        cout << node->valueToCSV() << endl;
         out << node->valueToCSV() << endl; // append studnet info to the end of the file
     }
     out.close(); // close the file
@@ -49,7 +43,6 @@ void Database::saveFaculty(){
     BSTIterator<int, Faculty> it = masterFaculty.iterator();
     while(it.hasNext()) {
         TreeNode<int, Faculty>* node = it.next();
-//        cout << node->valueToCSV() << endl;
         out << node->valueToCSV() << endl; // append studnet info to the end of the file
     }
     out.close(); // close the file
@@ -58,7 +51,6 @@ void Database::saveFaculty(){
 
 void Database::printStudentInfoAscendingOrder(){
     BSTIterator<int, Student> it = masterStudent.iterator();
-//    it.setCurrentForNextOrdered();
     while(it.hasNext()) {
         TreeNode<int, Student>* node = it.next();
         cout << node->value.toString() << endl;
@@ -67,7 +59,6 @@ void Database::printStudentInfoAscendingOrder(){
 
 void Database::printFacultyInfoAscendingOrder(){
     BSTIterator<int, Faculty> it = masterFaculty.iterator();
-//    it.setCurrentForNextOrdered();
     while(it.hasNext()) {
         TreeNode<int, Faculty>* node = it.next();
         cout << node->value.toString() << endl;
@@ -88,7 +79,6 @@ void Database::readStudentFile(){
         string col;
         while (std::getline(str_stream, col, ',')) {
             row.push_back(col);
-//            cout << col << endl;
         }
         int studentID = stoi(row[0]);
         string name = row[1];
@@ -120,13 +110,11 @@ void Database::readFacultyFile(){
         string col;
         while (std::getline(str_stream, col, ',')) {
             row.push_back(col);
-//            cout << col << endl;
         }
         int facultyID = stoi(row[0]);
         string name = row[1];
         string level = row[2];
         string department = row[3];
-//        facultyID = stoi(row[5]);
         Faculty faculty(facultyID, name, level, department);
         masterFaculty.insertNode(facultyID, faculty);
         lineCount++;
@@ -159,42 +147,12 @@ void Database::printFacultyInfo(){
     masterFaculty.printTree();
 }
 
-//void Database::addStudent(){
-//    int studentID;
-//    string name;
-//    string level;
-//    string major;
-//    double GPA;
-////    int facultyID;
-//    cout << "Student ID: " << endl;
-//    cin >> studentID;
-//    cout << "Student Name: " << endl;
-//    cin >> name;
-//    cout << "Student Major: " << endl;
-//    cin >> major;
-//    cout << "Student GPA: " << endl;
-//    cin >> GPA;
-//    cout << "Student Level: " << endl;
-//    cin >> level;
-////    cout << "Faculty ID: " << endl;
-////    cin >> facultyID;
-//    Student student(studentID, name, level, major, GPA);
-//    bool insert_successful = masterStudent.insertNode(studentID, student);
-//    if(insert_successful) {
-//        rollbackStack.push(RollbackCommand("DS",&student,NULL));
-//        cout << "Student (" << studentID << ") successfully inserted." << endl;
-//    } else {
-//        cout << "Student (" << studentID << ") NOT inserted." << endl;
-//    }
-//}
-
 void Database::addStudent(){
     int studentID;
     string name;
     string level;
     string major;
     double GPA;
-//    int facultyID;
     cout << "Student ID: " << endl;
     cin >> studentID;
     cout << "Student Name: " << endl;
@@ -210,8 +168,7 @@ void Database::addStudent(){
 }
 
 void Database::addStudent(Student& student){
-    int studentID;
-    bool insert_successful = masterStudent.insertNode(studentID, student);
+    bool insert_successful = masterStudent.insertNode(student.studentID, student);
     if(insert_successful) {
         rollbackStack.push(RollbackCommand("DS",&student,NULL));
         cout << "Student (" << student.studentID << ") successfully inserted." << endl;
@@ -225,7 +182,6 @@ void Database::addFaculty(){
     string name;
     string level;
     string department;
-//    int studentID;
     cout << "Faculty ID: " << endl;
     cin >> facultyID;
     cout << "Faculty Name: " << endl;
@@ -239,8 +195,7 @@ void Database::addFaculty(){
 }
 
 void Database::addFaculty(Faculty& faculty){
-    int facultyID;
-    bool insert_successful = masterFaculty.insertNode(facultyID, faculty);
+    bool insert_successful = masterFaculty.insertNode(faculty.facultyID, faculty);
     if(insert_successful) {
         rollbackStack.push(RollbackCommand("DF",NULL,&faculty));
         cout << "Faculty (" << faculty.facultyID << ") successfully inserted." << endl;
@@ -249,79 +204,43 @@ void Database::addFaculty(Faculty& faculty){
     }
 }
 
-//void Database::addFaculty(){
-//    int facultyID;
-//    string name;
-//    string level;
-//    string department;
-////    int studentID;
-//    cout << "Faculty ID: " << endl;
-//    cin >> facultyID;
-//    cout << "Faculty Name: " << endl;
-//    cin >> name;
-//    cout << "Faculty Department: " << endl;
-//    cin >> department;
-//    cout << "Faculty Level: " << endl;
-//    cin >> level;
-//    Faculty faculty(facultyID, name, level, department);
-//    bool insert_successful = masterFaculty.insertNode(facultyID, faculty);
-//    if(insert_successful) {
-//        rollbackStack.push(RollbackCommand("DF",NULL,&faculty));
-//        cout << "Faculty (" << facultyID << ") successfully inserted." << endl;
-//    } else {
-//        cout << "Faculty (" << facultyID << ") NOT inserted." << endl;
-//    }
-//}
-
 void Database::deleteStudent(){
     int studentID;
-    cout << "Student ID you want to delete: " << endl;
+    cout << "Student ID you want to delete: ";
     cin >> studentID;
     
-    Student* del_student = masterStudent.deleteNode(studentID);
-    deleteStudent(del_student);
+    Student del_student = masterStudent.deleteNode(studentID);
+    deleteStudent(del_student); 
 }
 
-void Database::deleteStudent(Student *del_student){
-    if(del_student) {
-        rollbackStack.push(RollbackCommand("IS",del_student,NULL));
-        cout << "Student (" << del_student->studentID << ") successfully deleted." << endl;
+void Database::deleteStudent(Student& del_student){
+    if(del_student.studentID != -1) {
+        rollbackStack.push(RollbackCommand("IS",&del_student,NULL));
+        rollbackStack.print();
+        cout << "Student (" << del_student.studentID << ") successfully deleted." << endl;
     } else {
-        cout << "Student (" << del_student->studentID << ") cannot be found!!!" << endl;
+        cout << "Student ID cannot be found!!!" << endl;
     }
 }
 
 void Database::deleteFaculty(){
     int facultyID;
-    cout << "Faculty ID you want to delete: " << endl;
+    cout << "Faculty ID you want to delete: ";
     cin >> facultyID;
     
-    Faculty *del_faculty = masterFaculty.deleteNode(facultyID);
+    Faculty del_faculty = masterFaculty.deleteNode(facultyID);
     deleteFaculty(del_faculty);
 }
 
-void Database::deleteFaculty(Faculty *del_faculty){
-    if(del_faculty) {
-        rollbackStack.push(RollbackCommand("IF",NULL,del_faculty));
-        cout << "Faculty (" << del_faculty->facultyID << ") successfully deleted." << endl;
+void Database::deleteFaculty(Faculty& del_faculty){
+    if(del_faculty.facultyID != -1) {
+        rollbackStack.push(RollbackCommand("IF",NULL,&del_faculty));
+        rollbackStack.print();
+        cout << "Faculty (" << del_faculty.facultyID << ") successfully deleted." << endl;
     } else {
-        cout << "Faculty (" << del_faculty->facultyID << ") cannot be found!!!" << endl;
+        cout << "Faculty ID cannot be found!!!" << endl;
     }
 }
-
-//void Database::deleteFaculty(){
-//    int facultyID;
-//    cout << "Faculty ID you want to delete: " << endl;
-//    cin >> facultyID;
-//    Faculty *del_faculty = masterFaculty.deleteNode(facultyID);
-//    if(del_faculty) {
-//        rollbackStack.push(RollbackCommand("IF",NULL,del_faculty));
-//        cout << "Faculty (" << facultyID << ") successfully deleted." << endl;
-//    } else {
-//        cout << "Faculty (" << facultyID << ") cannot be found!!!" << endl;
-//    }
-//}
-
 
 void Database::displayOneStudentInfo(){
     int studentID;
@@ -391,9 +310,7 @@ void Database::changeStudentAdvisor(){
         // remove advisee ID in the older faculty object
         if(student_node->value.facultyID != -1) {
             TreeNode<int, Faculty>* older_faculty_node = masterFaculty.searchNode(student_node->value.facultyID);
-
             rollbackStack.push(RollbackCommand("CA",&student_node->value,&older_faculty_node->value));
-
             older_faculty_node->value.removeAdiseeID(studentID);
             student_node->value.facultyID = -1;
         }
@@ -401,12 +318,9 @@ void Database::changeStudentAdvisor(){
         if(faculty_node == NULL) {
             cout << "Faculty (" << facultyID << ") cannot be found!!!" << endl;
         } else{
-            //        cout << student_node->value.toString() << endl;
             student_node->value.facultyID = facultyID;
             faculty_node->value.setAdviseeID(studentID);
-            
             rollbackStack.push(RollbackCommand("CA",&student_node->value,NULL));
-            
             cout << student_node->value.toString() << endl;
             cout << faculty_node->value.toString() << endl;
             cout << "Student (" << studentID << ") advisor is Faculty (" << facultyID << ")" << endl;
@@ -428,9 +342,7 @@ void Database::removeAdviseeFromFaculty(){
         // remove advisee ID in the older faculty object
         if(student_node->value.facultyID != -1) {
             TreeNode<int, Faculty>* older_faculty_node = masterFaculty.searchNode(student_node->value.facultyID);
-            
             rollbackStack.push(RollbackCommand("CA",&student_node->value,&older_faculty_node->value));
-            
             older_faculty_node->value.removeAdiseeID(studentID);
             student_node->value.facultyID = -1;
             cout << student_node->value.toString() << endl;
@@ -451,9 +363,9 @@ void Database::rollback(){
         } else if (rollback.command == "IS") {
             addStudent(*rollback.student);
         } else if (rollback.command == "DF") {
-            deleteFaculty(rollback.faculty);
+            deleteFaculty(*rollback.faculty);
         } else if (rollback.command == "DS") {
-            deleteStudent(rollback.student);
+            deleteStudent(*rollback.student);
         } else if (rollback.command == "CA") {
             cout << "To be implemented" << endl;
         } else {
@@ -462,9 +374,6 @@ void Database::rollback(){
     } else {
         cout << "Nothing to Rollback" << endl;
     }
-    
-    
-    
 }
 
 
@@ -548,43 +457,9 @@ void Database::menu(){
             default:
                 break;
         }
-        if (option > 16) {//program will end if user inputs 'Q' or 'q'
+        if (option > 16) {//program will end if user inputs any integer value greater than 16
             save();
             break;
         }
     }
 }
-
-
-//void Database::deleteStudent(){
-//    int studentID;
-//    cout << "Student ID: " << endl;
-//    cin >> studentID;
-//    std::fstream fileInputStream;
-//    fileInputStream.open(facultyFileName, std::ios::in);
-//    int lineCount = 0;
-//    // Read the Data from the file
-//    // as String Vector
-//    vector<string> row;
-//    string line;
-//    while (std::getline(fileInputStream, line)) {
-//        row.clear();
-//        stringstream str_stream(line);
-//        string col;
-//        while (std::getline(str_stream, col, ',')) {
-//            row.push_back(col);
-//            cout << col << endl;
-//        }
-//        int facultyID = stoi(row[0]);
-//        string name = row[1];
-//        string level = row[2];
-//        string department = row[3];
-////        facultyID = stoi(row[5]);
-//        Faculty faculty(facultyID, name, level, department);
-//        masterFaculty.insertNode(facultyID, faculty);
-//        lineCount++;
-//    }
-//    fileInputStream.close(); //close the file object.
-//}
-
-

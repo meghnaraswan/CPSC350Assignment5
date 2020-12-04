@@ -11,6 +11,7 @@ class Faculty;
 class Student{
     public:
         Student();
+        Student(const Student &s);
         Student(int sID, string n, string l, string m, double gpa);
         ~Student();
 

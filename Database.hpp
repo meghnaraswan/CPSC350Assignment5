@@ -25,8 +25,8 @@ class Database{
     
         GenStack<RollbackCommand> rollbackStack;
     
-        void deleteStudent(Student *del_student);
-        void deleteFaculty(Faculty *del_faculty);
+        void deleteStudent(Student& del_student);
+        void deleteFaculty(Faculty& del_faculty);
         void addStudent(Student& student);
         void addFaculty(Faculty& faculty);
 

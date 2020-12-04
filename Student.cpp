@@ -6,7 +6,17 @@
 
 //default constructor
 Student::Student(){
-//    facultyID = (f!=NULL)?f->getFacultyID():0;
+    studentID = -1;
+}
+
+//copy constructor
+Student::Student(const Student &s){
+    studentID = s.studentID;
+    name = s.name;
+    level = s.level;
+    major = s.major;
+    GPA = s.GPA;
+    facultyID = s.facultyID;
 }
 
 //overloaded constructor

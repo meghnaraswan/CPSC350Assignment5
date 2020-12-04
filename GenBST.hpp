@@ -24,20 +24,16 @@ class BST{
 
         bool insertNode(const K&, const V&);
         TreeNode<K, V>* searchNode(const K&);
-        V* deleteNode(const K& k);
+        V deleteNode(const K& k);
 
         int BSTheight(TreeNode<K, V> *node);
         bool isEmpty();
-//        K getMax();
-//        K getMin();
         void recPrint(TreeNode<K, V> *node); //recursive print, takes a node so we can print any part of the tree
-//        void recPrint(TreeNode<K, V> *node, int level); //recursive print, takes a node so we can print any part of the tree
         void printTree();
         void iterateThroughEachNode(TreeNode<K, V> *node);
 
         //returns the sucessor of the node to be deleted, d
         TreeNode<K, V>* getSuccessor(TreeNode<K, V> *d);
-//        int height;
 
         BSTIterator<K, V> iterator();
         int size;

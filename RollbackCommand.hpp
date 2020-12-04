@@ -1,11 +1,3 @@
-//
-//  RollbackCommand.hpp
-//  FirstCPP
-//
-//  Created by iMan on 12/3/20.
-//  Copyright © 2020 iMan. All rights reserved.
-//
-
 #ifndef RollbackCommand_hpp
 #define RollbackCommand_hpp
 

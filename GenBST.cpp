@@ -39,7 +39,6 @@ bool BST<K, V>::insertNode(const K& k, const V& v){
     // check if tree is empty, make node root if so
     if(isEmpty()){
         TreeNode<K, V> *node = new TreeNode<K, V>(k, v);
-//        size++;
         root = node;
         node->level = 0;
     } else {
@@ -53,7 +52,6 @@ bool BST<K, V>::insertNode(const K& k, const V& v){
                 if(current == NULL) { // reach the leaf anf then connect
                     //found insertion point
                     TreeNode<K, V> *node = new TreeNode<K, V>(k, v);
-//                    size++;
                     parent->left = node;
                     node->parent = parent;
                     node->level = parent->level+1;
@@ -65,7 +63,6 @@ bool BST<K, V>::insertNode(const K& k, const V& v){
                 if(current == NULL){ // reach the leaf anf then connect
                     //found insertion point
                     TreeNode<K, V> *node = new TreeNode<K, V>(k, v);
-//                    size++;
                     parent->right = node;
                     node->parent = parent;
                     node->level = parent->level +1;
@@ -80,11 +77,6 @@ bool BST<K, V>::insertNode(const K& k, const V& v){
     }
     return insert_success;
 }
-
-//template <class K, class V>
-//int BST<K, V>::getSize(){
-//    return size;
-//}
 
 template <class K, class V>
 TreeNode<K, V>* BST<K, V>::searchNode(const K& k){
@@ -108,19 +100,16 @@ TreeNode<K, V>* BST<K, V>::searchNode(const K& k){
 }
 
 template <class K, class V>
-V* BST<K, V>::deleteNode(const K& k){
-    V* ret_val = NULL;
+V BST<K, V>::deleteNode(const K& k){ 
+    V ret_val;
     TreeNode<K, V> *node_found = this->searchNode(k);
     if(node_found) {
-        cout << node_found->valueToCSV() << endl;
         TreeNode<K, V> *current = node_found;
         TreeNode<K, V> *parent = node_found->parent;
         bool isLeftNode = (parent!=NULL) ? (parent->left == current) : true;
-        
         //if we make it here, then we found it, now lets proceed to delete
         //case: node to delete has no children, AKA leaf node
         if(current->left == NULL && current->right == NULL){
-            cout << "if(current->left == NULL && current->right == NULL)" << endl;
             if(current == root){
                 root = NULL; //removed the node
             } else if(isLeftNode){
@@ -133,7 +122,7 @@ V* BST<K, V>::deleteNode(const K& k){
         //case: node to be deleted has one child. need to determine whether child is left or right
         else if(current->right == NULL){
             //node has left child, no right children
-            cout << "if(current->right == NULL)" << endl;
+//            cout << "if(current->right == NULL)" << endl;
             if(current == root)
                 root = current->left;
             else if(isLeftNode) {
@@ -148,7 +137,7 @@ V* BST<K, V>::deleteNode(const K& k){
         }
         else if(current->left ==NULL){
             //node has right child, no left children
-            cout << "if(current->left ==NULL)" << endl;
+//            cout << "if(current->left ==NULL)" << endl;
             if(current == root)
                 root = current->right;
             else if(isLeftNode) {
@@ -177,10 +166,8 @@ V* BST<K, V>::deleteNode(const K& k){
             }
             successor->left = current->left;
         }
-
-        cout << node_found->valueToCSV() << endl;
         // store the pointer of the value here to return it
-        ret_val = &(node_found->value);
+        ret_val = node_found->value;
         // cleaup the node memory here, before saying good by to the node
         delete node_found;
     }
@@ -221,147 +208,3 @@ bool BST<K, V>::isEmpty(){
 
 template class BST<int, Student>;
 template class BST<int, Faculty>;
-
-//template <class K, class V>
-//void BST<K, V>::recPrint(TreeNode<K, V> *node, int level){
-//    if(node == NULL){
-//        return;
-//    } if (level == 1) {
-//        cout << node << endl;
-//    } else if (level > 1) {
-//        recPrint(node->left, level - 1);
-//        cout << node->key << endl;
-//        recPrint(node->right, level - 1);
-//    }
-//}
-
-////prints entire tree
-//template <class K, class V>
-//void BST<K, V>::printTree(){
-//    int height = BSTheight(root);
-//    for(int i = 0; i <= height; ++i){
-//        recPrint(root, i);
-//    }
-//}
-
-//template <class K, class V>
-//int BST<K, V>::BSTheight(TreeNode<K, V> *node){
-//    if (node == NULL) {
-//           return 0;
-//    } else {
-//        int leftHeight = BSTheight(node->left);
-//        int rightHeight = BSTheight(node->right);
-//        if (leftHeight > rightHeight) {
-//            return(leftHeight + 1);
-//        } else {
-//            return(rightHeight + 1);
-//        }
-//    }
-//}
-
-
-//template <class T>
-//T BST<T>::getMax(){
-//    if(isEmpty())
-////        return 0;
-//        return NULL;
-//    TreeNode *current = root;
-//    while (current->right != NULL) {
-//        current = current->right;
-//    }
-//    return current->key;
-//}
-//
-//template <class T>
-//T BST<T>::getMin(){
-//  if(isEmpty())
-//    return 0;
-//
-//  TreeNode *current = root;
-//
-//  while (current->left != NULL) {
-//    current = current->left;
-//  }
-//  return current->key;
-//}
-
-
-//template <class K, class V>
-//void BST<K, V>::iterateThroughEachNode(TreeNode<K, V> *node){
-//    if(node->left != NULL) {
-//        iterateThroughEachNode(node->left);
-//    }
-//    if(node->right != NULL) {
-//        iterateThroughEachNode(node->right);
-//    }
-//    if(node->left == NULL && node->right == NULL) {
-//        //leaf
-//    }
-//}
-//needs to be fixed
-//template <class K, class V>
-//V BST<K, V>::deleteNode(const K& k){
-//    if(isEmpty())
-//        return false;
-//    TreeNode<K, V> *parent = NULL;
-//    TreeNode<K, V> *current = root;
-//    bool isLeftNode = true;
-//    //usual code to find a TreeNode
-//    while(current->key !=k){
-//        parent = current;
-//        if(k < current->key){ //go left
-//            isLeftNode = true;
-//            current = current->left;
-//        } else { //go right
-//            isLeftNode = false;
-//            current = current->right;
-//        }
-//        if(current == NULL){ //value does not exist
-//            return false;
-//        }
-//    }
-//    //if we make it here, then we found it, now lets proceed to delete
-//    //case: node to delete has no children, AKA leaf node
-//    if(current->left == NULL && current->right == NULL){
-//        if(current == root){
-//            root = NULL; //removed the node
-//        } else if(isLeftNode){
-//            parent->left = NULL;
-//        } else{ //right child
-//            parent->right = NULL;
-//        }
-//    }
-//    //FIX THISSSS
-//    //case: node to be deleted has one child. need to determine whether child is left or right
-//    else if(current->right == NULL){
-//        //node has left child, no right children
-//        if(current == root)
-//            root = current->left;
-//         else if(isLeftNode)
-//             parent->left = current->left;
-//        else
-//            parent->right = current->left;
-//    }
-//    else if(current->left ==NULL){
-//        //node has right child, no left children
-//        if(current == root)
-//            root = current->right;
-//        else if(isLeftNode)
-//            parent ->left = current->right;
-//        else
-//            parent->right = current ->right;
-//    } else {
-//        //node to be deleted has two children. we need to find the successor in this case
-//        TreeNode<K, V> *successor = getSuccessor(current); //current is the node to be deleted
-//        if(current == root)
-//            root = successor;
-//        else if (isLeftNode)
-//            parent ->left = successor;
-//        else
-//            parent->right = successor;
-//        successor->left = current->left;
-//    }
-//    //TO DO!!!!!!!!!!!!!!
-//    //do we delete(garbage collect) the tree in the delete function for the destructor???
-//    return true;
-//}

@@ -4,16 +4,23 @@
 #include <algorithm>
 
 //default constructor
-Faculty::Faculty(){}
+Faculty::Faculty(){
+    facultyID = -1;
+}
+
+//copy constructor
+Faculty::Faculty(const Faculty &f){ 
+    facultyID = f.facultyID;
+    name = f.name;
+    level = f.level;
+    department = f.department;
+}
 
 Faculty::Faculty(int fID, string n, string l, string d){
     facultyID = fID;
     name = n;
     level = l;
     department = d;
-//    for (int i = 0; i < numAdvisees; ++i){ //rows
-//        myArray[i] = new Student(); //array consists of Cell datatype
-//    }
 }
 
 //destructor

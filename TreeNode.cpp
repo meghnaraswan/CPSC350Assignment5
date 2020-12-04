@@ -31,7 +31,6 @@ TreeNode<K, V>::~TreeNode(){}
 
 template <class K, class V>
 void TreeNode<K, V>::print(){
-//    cout << level_to_str() << "Level: " << level << endl;
     cout << level_to_str() << "Key: " << key << endl;
     cout << level_to_str() << "Value: " << value.toString() << endl;
     if (left){
