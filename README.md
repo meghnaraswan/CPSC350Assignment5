@@ -34,7 +34,7 @@ Files:
 How to run:
 - g++ *.cpp -o BSTDatabase
 - ./BSTDatabase
-* The file names are already included the Database.cpp file and are provided in this github link as sample_student_table.csv and sample_faculty_table.csv so you can change the path of these files accordingly in the Database.cpp file. *
+** The file names are already included the Database.cpp file and are provided in this github link as sample_student_table.csv and sample_faculty_table.csv so you can change the path of these files accordingly in the Database.cpp file. **
 
 References:
 - ZyBooks: CPSC 298 Intro to C++
